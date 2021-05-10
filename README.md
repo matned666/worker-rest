@@ -70,6 +70,13 @@ GET to `host:8080/team/worker/{teamId}/{workerId}` adds member to a team
 DELETE to `host:8080/team/worker/{teamId}/{workerId}` removes member from a team (keeping the worker active)
 
 ------------------------------
+#Validation
+
+both Team and Worker name cannot be longer than 50 chars
+
+
+
+------------------------------
 #Tests
 
 There are a few tests showing that I can do them, but due to a lack of time I couldn't make them all.

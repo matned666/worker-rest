@@ -6,6 +6,7 @@ import eu.mrndesign.matned.workerrest.workerrestapplication.service.IService;
 import eu.mrndesign.matned.workerrest.workerrestapplication.service.ITeamService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class WorkerController {
     }
 
     @PostMapping("")
-    public WorkerDTO postNewWorker(@RequestBody WorkerDTO data){
+    public WorkerDTO postNewWorker(@Valid @RequestBody WorkerDTO data){
         return workerService.save(data);
     }
 
@@ -40,7 +41,7 @@ public class WorkerController {
 
     @PostMapping("/{id}")
     public WorkerDTO editExistingWorkerData(@PathVariable Long id,
-                                            @RequestBody WorkerDTO data){
+                                            @Valid @RequestBody WorkerDTO data){
         return workerService.edit(id, data);
     }
 

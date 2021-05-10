@@ -4,13 +4,17 @@ import eu.mrndesign.matned.workerrest.workerrestapplication.exception.NullEntity
 import eu.mrndesign.matned.workerrest.workerrestapplication.model.WorkerEntity;
 import eu.mrndesign.matned.workerrest.workerrestapplication.utils.Patterns;
 
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class WorkerDTO extends BaseDTO implements IDTO<WorkerDTO, WorkerEntity> {
 
 
     private Long id;
+
+    @Size(max = 50, message = "Name can to be max {max} characters long")
     private String name;
+
     private Double salary;
     private String employmentDate;
 

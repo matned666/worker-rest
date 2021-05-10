@@ -5,6 +5,7 @@ import eu.mrndesign.matned.workerrest.workerrestapplication.dto.WorkerDTO;
 import eu.mrndesign.matned.workerrest.workerrestapplication.service.ITeamService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,13 +24,13 @@ public class TeamController {
     }
 
     @PostMapping
-    public TeamDTO saveTeam(@RequestBody TeamDTO team){
+    public TeamDTO saveTeam(@Valid @RequestBody TeamDTO team){
         return teamService.save(team);
     }
 
     @PostMapping("/{id}")
     public TeamDTO editTeam(@PathVariable Long id,
-                            @RequestBody TeamDTO data){
+                            @Valid @RequestBody TeamDTO data){
         return teamService.edit(id, data);
     }
 

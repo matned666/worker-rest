@@ -3,11 +3,14 @@ package eu.mrndesign.matned.workerrest.workerrestapplication.dto;
 import eu.mrndesign.matned.workerrest.workerrestapplication.exception.NullEntityDataProvidedException;
 import eu.mrndesign.matned.workerrest.workerrestapplication.model.Team;
 
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class TeamDTO extends BaseDTO implements IDTO<TeamDTO, Team> {
 
     private Long id;
+
+    @Size(max = 50, message = "Name can to be max {max} characters long")
     private String name;
 
     public TeamDTO() {

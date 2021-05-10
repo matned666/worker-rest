@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "TEAM_ENTITY")
 public class Team extends BaseEntity implements IEntityApply<Team, TeamDTO>, IEntity<Team, WorkerEntity> {
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 50)
     private String teamName;
 
     @ManyToMany(fetch = FetchType.EAGER)
