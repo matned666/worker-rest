@@ -47,14 +47,6 @@ class TeamControllerIntegrationTest {
     @Test
     @DisplayName("GET /orders test - all orders found with status 200")
     void getAllTeams() throws Exception {
-        List<TeamDTO> teams = Arrays.asList( new TeamDTO("team1"), new TeamDTO("team1"));
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/team")
-                        .accept("application/json"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(JsonOps.asJsonString(teams)))
-                .andReturn();
 
     }
 
