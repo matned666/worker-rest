@@ -1,49 +1,42 @@
 package eu.mrndesign.matned.workerrest.workerrestapplication.utils;
 
+import eu.mrndesign.matned.workerrest.workerrestapplication.exception.WrongDateFormatException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class Patterns {
 
-    private static List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "dd-MM-yyyy", "ddMMyyyy","yyyyMMdd", "dd.MM.yyyy");
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
 
 
-    public static Date getDateFromString(String dateString)
+    private static final List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "dd-MM-yyyy", "ddMMyyyy","yyyyMMdd", "dd.MM.yyyy");
+
+
+    public static LocalDate getDateFromString(String dateString)
     {
         for (String formatString : formatStrings)
         {
             try
             {
-                return Date.from(LocalDate.parse(dateString, DateTimeFormatter.ofPattern(formatString)).atStartOfDay(ZoneId.systemDefault()).toInstant());
+                return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(formatString));
             }
             catch (Exception ignored) {}
         }
-
-        return null;
+        throw new WrongDateFormatException();
     }
 
-    public static boolean isCorrectDate(String date, DateTimeFormatter formatter){
-        if (date != null) {
-            try {
-                LocalDateTime.parse(date, formatter);
-                return true;
-            } catch (DateTimeParseException e1) {
-                try {
-                    LocalDate.parse(date, formatter);
-                    return true;
-                } catch (DateTimeParseException e2) {
-                    return false;
-                }
-            }
-        } return false;
+    public static String getDateToString(LocalDate parsed){
+        try {
+            return parsed.format(DATE_TIME_FORMATTER);
+        }catch (NullPointerException ex){
+            System.out.println("Null date - unable to format");
+        }
+        return null;
     }
 
 }

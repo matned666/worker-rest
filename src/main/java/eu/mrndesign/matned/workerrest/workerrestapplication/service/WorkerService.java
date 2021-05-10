@@ -4,10 +4,12 @@ import eu.mrndesign.matned.workerrest.workerrestapplication.dto.WorkerDTO;
 import eu.mrndesign.matned.workerrest.workerrestapplication.exception.NoWorkerWithTheIdFoundInDataBaseException;
 import eu.mrndesign.matned.workerrest.workerrestapplication.model.WorkerEntity;
 import eu.mrndesign.matned.workerrest.workerrestapplication.repository.WorkerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class WorkerService extends BaseService implements IService<WorkerDTO> {
 
     private final WorkerRepository workerRepository;
@@ -17,7 +19,7 @@ public class WorkerService extends BaseService implements IService<WorkerDTO> {
     }
 
     @Override
-    public List<WorkerDTO> findAllWorkers() {
+    public List<WorkerDTO> findAll() {
         return workerRepository.findAll().stream()
                 .map(x->new WorkerDTO().applyNew(x))
                 .collect(Collectors.toList());
@@ -31,7 +33,7 @@ public class WorkerService extends BaseService implements IService<WorkerDTO> {
     @Override
     public List<WorkerDTO> deleteById(Long id) {
         workerRepository.deleteById(id);
-        return findAllWorkers();
+        return findAll();
     }
 
     @Override
@@ -43,7 +45,7 @@ public class WorkerService extends BaseService implements IService<WorkerDTO> {
     @Override
     public WorkerDTO edit(Long id, WorkerDTO data) {
         WorkerEntity toEdit = workerRepository.findById(id).orElseThrow(NoWorkerWithTheIdFoundInDataBaseException::new);
-        toEdit.applyChanges(data);
+        toEdit.applyNew(data);
         return new WorkerDTO().applyNew(workerRepository.save(toEdit));
     }
 }
